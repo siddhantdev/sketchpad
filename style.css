@@ -22,11 +22,11 @@ h1 {
     background: black;
     gap: 0;
     padding: 0;
+    border: solid 2px black;
 }
 
 .pixel {
     background: white;
-    border: solid 1px black;
     margin: 0;
     padding: 0;
 }

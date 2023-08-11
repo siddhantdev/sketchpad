@@ -6,9 +6,11 @@ document.body.onmousedown = () => mouseDown = true;
 document.body.onmouseup = () => mouseDown = false;
 
 let pixels = [];
+let border = true;
+let n = 8;
 
-function createGrid(n = 8) {
-    let size = 800/n - 2;
+function createGrid() {
+    let size = border ? (800 / n - 2) : 800/n;
     pixels = [];
 
     grid.replaceChildren();
@@ -17,6 +19,8 @@ function createGrid(n = 8) {
         const pixel = document.createElement('div');
         pixel.classList.add('pixel')
         pixel.style.flex = `0 1 ${size}px`;
+        if(border)
+            pixel.style.border = "solid 1px black";
         pixels.push(pixel);
     }
 
@@ -25,7 +29,7 @@ function createGrid(n = 8) {
 
     pixels.forEach(pixel => grid.appendChild(pixel));
 }
-createGrid(8);
+createGrid();
 
 function fill(e) {
     if(e.type === 'mouseover' && !mouseDown) return;
@@ -41,6 +45,14 @@ clear_btn.addEventListener('click', () => {
 
 const sz_btn = document.querySelector('.size');
 sz_btn.addEventListener('click', () => {
-    let n = prompt("Enter the side of each side");
-    createGrid(n);
+    let x = prompt("Enter the side of each side");
+    if(x <= 64 && x > 0)
+        n = x;
+    createGrid();
 });
+
+const border_btn = document.querySelector('.border');
+border_btn.addEventListener('click', () => {
+    border = !border;
+    createGrid();
+})
