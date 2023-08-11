@@ -1,6 +1,5 @@
 const grid = document.querySelector('.grid');
-
-let brush = "black";
+const colorPicker = document.querySelector('#favcolor');
 
 let n = 8;
 let size = 800/n - 2;
@@ -26,18 +25,9 @@ pixels.forEach(pixel => pixel.addEventListener('mouseover', fill));
 function fill(e) {
     if(e.type === 'mouseover' && !mouseDown) return;
 
-    e.target.style.background = brush;
+    const color = colorPicker.value;
+    e.target.style.background = color;
 }
-
-const erase_btn = document.querySelector('.eraser');
-erase_btn.addEventListener('click', () => {
-    brush = "white";
-});
-
-const reset_btn = document.querySelector('.reset');
-reset_btn.addEventListener('click', () => {
-    brush = "black";
-});
 
 const clear_btn = document.querySelector('.clear');
 clear_btn.addEventListener('click', () => {

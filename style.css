@@ -33,9 +33,10 @@ h1 {
 
 .ctrl-panel {
     margin: 25px;
+    display: flex;
+    gap: 10px;
 }
 
 button {
-    margin: 10px;
-    padding: 10px;
+    padding: 5px;
 }
