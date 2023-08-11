@@ -10,7 +10,7 @@ let border = true;
 let n = 8;
 
 function createGrid() {
-    let size = border ? (800 / n - 2) : 800/n;
+    let size = 800 / n - 2;
     pixels = [];
 
     grid.replaceChildren();
@@ -19,8 +19,7 @@ function createGrid() {
         const pixel = document.createElement('div');
         pixel.classList.add('pixel')
         pixel.style.flex = `0 1 ${size}px`;
-        if(border)
-            pixel.style.border = "solid 1px black";
+        pixel.style.border = "solid 1px rgba(100, 100, 100, 0.3)";
         pixels.push(pixel);
     }
 
@@ -30,6 +29,23 @@ function createGrid() {
     pixels.forEach(pixel => grid.appendChild(pixel));
 }
 createGrid();
+
+function toggleBorder() {
+    border = !border;
+    if(border) {
+        let size = 800 / n - 2;
+        pixels.forEach(pixel => {
+            pixel.style.flex = `0 1 ${size}px`;
+            pixel.style.border = "solid 1px rgba(100, 100, 100, 0.3)";
+        });
+    } else {
+        let size = 800 / n;
+        pixels.forEach(pixel => {
+            pixel.style.flex = `0 1 ${size}px`;
+            pixel.style.border = "none";
+        });
+    }
+}
 
 function fill(e) {
     if(e.type === 'mouseover' && !mouseDown) return;
@@ -52,7 +68,4 @@ sz_btn.addEventListener('click', () => {
 });
 
 const border_btn = document.querySelector('.border');
-border_btn.addEventListener('click', () => {
-    border = !border;
-    createGrid();
-})
+border_btn.addEventListener('click', toggleBorder);
