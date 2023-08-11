@@ -16,7 +16,7 @@ function createGrid() {
 
     grid.replaceChildren();
 
-    for(let i = 0; i < n * n; ++i) {
+    for (let i = 0; i < n * n; ++i) {
         const pixel = document.createElement('div');
         pixel.classList.add('pixel')
         pixel.style.flex = `0 1 ${size}px`;
@@ -33,7 +33,7 @@ createGrid();
 
 function toggleBorder() {
     border = !border;
-    if(border) {
+    if (border) {
         let size = 800 / n - 2;
         pixels.forEach(pixel => {
             pixel.style.flex = `0 1 ${size}px`;
@@ -49,9 +49,9 @@ function toggleBorder() {
 }
 
 function fill(e) {
-    if(e.type === 'mouseover' && !mouseDown) return;
+    if (e.type === 'mouseover' && !mouseDown) return;
 
-    if(rainbow) {
+    if (rainbow) {
         let r = Math.floor(Math.random() * 255) + 1;
         let g = Math.floor(Math.random() * 255) + 1;
         let b = Math.floor(Math.random() * 255) + 1;
@@ -70,7 +70,7 @@ clear_btn.addEventListener('click', () => {
 const sz_btn = document.querySelector('.size');
 sz_btn.addEventListener('click', () => {
     let x = prompt("Enter the side of each side");
-    if(x <= 64 && x > 0)
+    if (x <= 64 && x > 0)
         n = x;
     createGrid();
 });
@@ -82,3 +82,18 @@ const toggle_rainbow = document.querySelector('.rainbow');
 toggle_rainbow.addEventListener('click', () => {
     rainbow = !rainbow;
 });
+
+function downloadimage() {
+    var container = grid;
+    html2canvas(container, { allowTaint: true }).then(function(canvas) {
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.download = "pixel_art.jpg";
+        link.href = canvas.toDataURL();
+        link.target = '_blank';
+        link.click();
+    });
+}
+
+const down_btn = document.querySelector('.download');
+down_btn.addEventListener('click', downloadimage);
