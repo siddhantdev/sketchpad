@@ -6,6 +6,11 @@ let n = 8;
 let size = 800/n - 2;
 let pixels = [];
 
+let mouseDown = false;
+
+document.body.onmousedown = () => mouseDown = true;
+document.body.onmouseup = () => mouseDown = false;
+
 for(let i = 0; i < n * n; ++i) {
     const pixel = document.createElement('div');
     pixel.classList.add('pixel')
@@ -15,9 +20,14 @@ for(let i = 0; i < n * n; ++i) {
 
 pixels.forEach(pixel => grid.appendChild(pixel));
 
-pixels.forEach(pixel => pixel.addEventListener('mouseover', () => {
-    pixel.style.background = brush;
-}))
+pixels.forEach(pixel => pixel.addEventListener('mousedown', fill));
+pixels.forEach(pixel => pixel.addEventListener('mouseover', fill));
+
+function fill(e) {
+    if(e.type === 'mouseover' && !mouseDown) return;
+
+    e.target.style.background = brush;
+}
 
 const erase_btn = document.querySelector('.eraser');
 erase_btn.addEventListener('click', () => {
