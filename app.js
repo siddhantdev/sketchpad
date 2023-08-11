@@ -24,6 +24,11 @@ erase_btn.addEventListener('click', () => {
     brush = "white";
 });
 
+const reset_btn = document.querySelector('.reset');
+reset_btn.addEventListener('click', () => {
+    brush = "black";
+});
+
 const clear_btn = document.querySelector('.clear');
 clear_btn.addEventListener('click', () => {
     pixels.forEach(pixel => pixel.style.background = "white");
