@@ -7,6 +7,7 @@ document.body.onmouseup = () => mouseDown = false;
 
 let pixels = [];
 let border = true;
+let rainbow = false;
 let n = 8;
 
 function createGrid() {
@@ -50,8 +51,15 @@ function toggleBorder() {
 function fill(e) {
     if(e.type === 'mouseover' && !mouseDown) return;
 
-    const color = colorPicker.value;
-    e.target.style.background = color;
+    if(rainbow) {
+        let r = Math.floor(Math.random() * 255) + 1;
+        let g = Math.floor(Math.random() * 255) + 1;
+        let b = Math.floor(Math.random() * 255) + 1;
+        e.target.style.background = `rgb(${r}, ${g}, ${b})`
+    } else {
+        const color = colorPicker.value;
+        e.target.style.background = color;
+    }
 }
 
 const clear_btn = document.querySelector('.clear');
@@ -69,3 +77,8 @@ sz_btn.addEventListener('click', () => {
 
 const border_btn = document.querySelector('.border');
 border_btn.addEventListener('click', toggleBorder);
+
+const toggle_rainbow = document.querySelector('.rainbow');
+toggle_rainbow.addEventListener('click', () => {
+    rainbow = !rainbow;
+});
